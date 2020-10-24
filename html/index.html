@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0,minimal-ui:ios">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>羊癫疯</title>
+    <link rel="stylesheet" href="">
+    <script src=""></script>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" placeholder="输入你的内容">
+
+    <button>发送请求</button>
+
+    <!-- 显示结果 -->
+    <div></div>
+
+
+    <script>
+
+        var input = document.querySelector('input')
+        var button = document.querySelector('button')
+        var div = document.querySelector('div')
+
+        //创建websocket
+        //参数1：websocket的服务地址
+        var socket = new WebSocket('ws://echo.websocket.org') 
+
+        //open：当和websocket连接时触发的事件
+        socket.addEventListener('open',function(){
+
+            div.innerHTML = '连接成功！'
+
+        })
+
+        //主动给websocket服务器发送消息
+        button.addEventListener('click',function(){
+        
+            var  value = input.value
+
+            socket.send(value)
+
+        })
+
+        //接收websocket发送的数据
+        socket.addEventListener('message',function(e){
+
+            console.log(e.data)
+
+            div.innerHTML =e.data
+
+        })
+    </script>
+
+</body>
+
+</html>
